@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/font-awesome.css" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/lightbox.min.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <!-- <title>Pokemon Tournament</title> -->
+    <title>Act</title>
+  </head>
+  <body>
+    <!-- <header class="header vh-100 text-center position-relative">
+      <div
+        class="text-container position-relative d-flex flex-column justify-content-center align-items-center h-100"
+      >
+        <h5 class="text-primary fs-3 fw-bold text-uppercase">Welcome to</h5>
+        <h1 id="typing-text" class="display-1 fw-bold text-white"></h1>
+        <p class="roles text-white text-uppercase fs-4">
+          <span>Datu Hasmin Ibad - </span><span>SSCGi Trainee</span>
+        </p>
+        <a
+          href="#"
+          class="btn btn-outline-light btn-lg mt-3"
+          data-bs-toggle="modal"
+          data-bs-target="#gameChoicesModal"
+        >
+          <div class="d-flex">
+            <div class="text-start">
+              <span>Play Game</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </header> -->
+
+    <div
+      class="modal fade"
+      id="gameChoicesModal"
+      tabindex="-1"
+      aria-labelledby="gameChoicesModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="gameChoicesModalLabel">
+              Choose Your Game
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <section id="section-gameChoices">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-4">
+                    <a href="#" class="card text-center">
+                      <div class="card-body">
+                        <i class="fa-solid fa-user fa-3x mb-3"></i>
+                        <p class="card-text">Play alone against the game.</p>
+                      </div>
+                    </a>
+                  </div>
+
+                  <div class="col-md-4">
+                    <a href="#" class="card text-center">
+                      <div class="card-body">
+                        <i class="fa-solid fa-users fa-3x mb-3"></i>
+                        <h5 class="card-title">Play with Friend</h5>
+                        <p class="card-text">
+                          Invite your friend for a fun game.
+                        </p>
+                      </div>
+                    </a>
+                  </div>
+
+                  <div class="col-md-4">
+                    <a href="#" class="card text-center">
+                      <div class="card-body">
+                        <i class="fa-solid fa-computer fa-3x mb-3"></i>
+                        <h5 class="card-title">Computer Only</h5>
+                        <p class="card-text">
+                          Watch how Computer Player battle
+                        </p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/lightbox-plus-jquery.min.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
