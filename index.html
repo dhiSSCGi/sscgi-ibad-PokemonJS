@@ -20,7 +20,10 @@
     <title>Act</title>
   </head>
   <body>
-    <!-- <header class="header vh-100 text-center position-relative">
+    <header
+      id="headerSection"
+      class="header vh-100 text-center position-relative"
+    >
       <div
         class="text-container position-relative d-flex flex-column justify-content-center align-items-center h-100"
       >
@@ -42,8 +45,19 @@
           </div>
         </a>
       </div>
-    </header> -->
-
+    </header>
+    <!-- <a
+      href="#"
+      class="btn btn-outline-light btn-lg mt-3"
+      data-bs-toggle="modal"
+      data-bs-target="#starterChoicesModal"
+    >
+      <div class="d-flex">starterChoices
+        <div class="text-start">
+          <span>Play Game</span>
+        </div>
+      </div>
+    </a> -->
     <div
       class="modal fade"
       id="gameChoicesModal"
@@ -51,7 +65,7 @@
       aria-labelledby="gameChoicesModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="gameChoicesModalLabel">
@@ -68,19 +82,20 @@
           <div class="modal-body">
             <section id="section-gameChoices">
               <div class="container">
-                <div class="row">
-                  <div class="col-md-4">
+                <div class="row g-2">
+                  <div class="col-lg-4">
                     <a href="#" class="card text-center">
-                      <div class="card-body">
+                      <div class="card-body" onclick="choosingNumOfPlayers(1)">
                         <i class="fa-solid fa-user fa-3x mb-3"></i>
+                        <h5 class="card-title">Single Player</h5>
                         <p class="card-text">Play alone against the game.</p>
                       </div>
                     </a>
                   </div>
 
-                  <div class="col-md-4">
+                  <div class="col-lg-4">
                     <a href="#" class="card text-center">
-                      <div class="card-body">
+                      <div class="card-body" onclick="choosingNumOfPlayers(2)">
                         <i class="fa-solid fa-users fa-3x mb-3"></i>
                         <h5 class="card-title">Play with Friend</h5>
                         <p class="card-text">
@@ -90,14 +105,12 @@
                     </a>
                   </div>
 
-                  <div class="col-md-4">
+                  <div class="col-lg-4">
                     <a href="#" class="card text-center">
-                      <div class="card-body">
+                      <div class="card-body" onclick="choosingNumOfPlayers(0)">
                         <i class="fa-solid fa-computer fa-3x mb-3"></i>
                         <h5 class="card-title">Computer Only</h5>
-                        <p class="card-text">
-                          Watch how Computer Player battle
-                        </p>
+                        <p class="card-text">Watch how Computer battles</p>
                       </div>
                     </a>
                   </div>
@@ -118,8 +131,237 @@
       </div>
     </div>
 
+    <!-- <section id="section-pokemonSelection">
+      <div id="pokemonSelection"></div>
+    </section> -->
+
+    <div
+      class="modal fade"
+      id="starterChoicesModal"
+      tabindex="-1"
+      aria-labelledby="starterChoicesModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="starterChoicesModalLabel">
+              Choose Your Starter
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <section id="section-starterChoices">
+              <div class="container d-flex justify-content-center">
+                <div class="row">
+                  <div class="col-xl-4 pokemon-card">
+                    <img
+                      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png"
+                      alt="Venusaur"
+                    />
+                    <p>Venusaur</p>
+                    <p class="text-muted">Type: Grass/Poison</p>
+                    <p class="text-muted">Overgrow</p>
+                    <div class="row">
+                      <div class="col">
+                        <p class="text-muted">Earthquake</p>
+                        <p class="text-muted">Sludge Bomb</p>
+                      </div>
+                      <div class="col">
+                        <p class="text-muted">Petal Dance</p>
+                        <p class="text-muted">Solarbeam</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-4 pokemon-card">
+                    <img
+                      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png"
+                      alt="Charizard"
+                    />
+                    <p>Charizard</p>
+                    <p class="text-muted">Type: Fire/Flying</p>
+                    <p class="text-muted">Ability: Blaze</p>
+                    <div class="row">
+                      <div class="col">
+                        <p class="text-muted">Move: Scratch</p>
+                        <p class="text-muted">Move: Ember</p>
+                      </div>
+                      <div class="col">
+                        <p class="text-muted">Move: Flamethrower</p>
+                        <p class="text-muted">Move: Fire Spin</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-4 pokemon-card">
+                    <img
+                      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png"
+                      alt="Blastoise"
+                    />
+                    <p>Blastoise</p>
+                    <p class="text-muted">Type: Water</p>
+                    <p class="text-muted">Ability: Torrent</p>
+                    <div class="row">
+                      <div class="col">
+                        <p class="text-muted">Move: Tackle</p>
+                        <p class="text-muted">Move: Water Gun</p>
+                      </div>
+                      <div class="col">
+                        <p class="text-muted">Move: Bubble</p>
+                        <p class="text-muted">Move: Hydro Pump</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-xl-4 pokemon-card">
+                    <img
+                      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/389.png"
+                      alt="Torterra"
+                    />
+                    <p>Torterra</p>
+                    <p class="text-muted">Type: Grass/Ground</p>
+                    <p class="text-muted">Ability: Overgrow</p>
+                    <div class="row">
+                      <div class="col">
+                        <p class="text-muted">Move: Tackle</p>
+                        <p class="text-muted">Move: Leaf Storm</p>
+                      </div>
+                      <div class="col">
+                        <p class="text-muted">Move: Earthquake</p>
+                        <p class="text-muted">Move: Crunch</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-4 pokemon-card">
+                    <img
+                      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/392.png"
+                      alt="Infernape"
+                    />
+                    <p>Infernape</p>
+                    <p class="text-muted">Type: Fire/Fighting</p>
+                    <p class="text-muted">Ability: Blaze</p>
+                    <div class="row">
+                      <div class="col">
+                        <p class="text-muted">Move: Scratch</p>
+                        <p class="text-muted">Move: Flame Wheel</p>
+                      </div>
+                      <div class="col">
+                        <p class="text-muted">Move: Close Combat</p>
+                        <p class="text-muted">Move: Flare Blitz</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-4 pokemon-card">
+                    <img
+                      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/395.png"
+                      alt="Empoleon"
+                    />
+                    <p>Empoleon</p>
+                    <p class="text-muted">Type: Water/Steel</p>
+                    <p class="text-muted">Ability: Torrent</p>
+                    <div class="row">
+                      <div class="col">
+                        <p class="text-muted">Move: Tackle</p>
+                        <p class="text-muted">Move: Bubble Beam</p>
+                      </div>
+                      <div class="col">
+                        <p class="text-muted">Move: Drill Peck</p>
+                        <p class="text-muted">Move: Hydro Pump</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-xl-4 pokemon-card">
+                    <img
+                      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/254.png"
+                      alt="Sceptile"
+                    />
+                    <p>Sceptile</p>
+                    <p class="text-muted">Type: Grass</p>
+                    <p class="text-muted">Ability: Overgrow</p>
+                    <div class="row">
+                      <div class="col">
+                        <p class="text-muted">Move: Pound</p>
+                        <p class="text-muted">Move: Leaf Blade</p>
+                      </div>
+                      <div class="col">
+                        <p class="text-muted">Move: Quick Attack</p>
+                        <p class="text-muted">Move: Leaf Storm</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-4 pokemon-card">
+                    <img
+                      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/257.png"
+                      alt="Blaziken"
+                    />
+                    <p>Blaziken</p>
+                    <p class="text-muted">Type: Fire/Fighting</p>
+                    <p class="text-muted">Ability: Blaze</p>
+                    <div class="row">
+                      <div class="col">
+                        <p class="text-muted">Move: Scratch</p>
+                        <p class="text-muted">Move: Blaze Kick</p>
+                      </div>
+                      <div class="col">
+                        <p class="text-muted">Move: Double Kick</p>
+                        <p class="text-muted">Move: Flare Blitz</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-4 pokemon-card">
+                    <img
+                      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/260.png"
+                      alt="Swampert"
+                    />
+                    <p>Swampert</p>
+                    <p class="text-muted">Type: Water/Ground</p>
+                    <p class="text-muted">Ability: Torrent</p>
+                    <div class="row">
+                      <div class="col">
+                        <p class="text-muted">Move: Tackle</p>
+                        <p class="text-muted">Move: Mud Shot</p>
+                      </div>
+                      <div class="col">
+                        <p class="text-muted">Move: Surf</p>
+                        <p class="text-muted">Move: Earthquake</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div class="modal-footer">
+            <button
+              id="submitPokemonSelection"
+              type="button"
+              class="btn btn-primary"
+            >
+              Submit
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/lightbox-plus-jquery.min.js"></script>
+    <script src="js/fire.js"></script>
+    <script src="js/pokemons.js"></script>
+
     <script src="js/script.js"></script>
   </body>
 </html>

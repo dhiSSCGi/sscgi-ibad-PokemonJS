@@ -2,6 +2,7 @@
   background: #151515 url("../images/PokemonTournament.png") no-repeat center;
   background-size: cover;
   background-attachment: fixed;
+  position: relative;
 }
 
 .header::after {
@@ -31,3 +32,20 @@
 .card-body {
   flex-grow: 1;
 }
+
+.trainers {
+  color: #ffffff;
+  background: #00d5ff;
+  font-size: 1.2rem;
+  padding: 0.2rem 0.4rem;
+  margin: 1px;
+  font-family: Arial;
+  border: 2px solid #ff6347;
+  border-radius: 4px;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px #0a0121;
+}
+
+// #pokemonSelection {
+//   display: none;
+// }
