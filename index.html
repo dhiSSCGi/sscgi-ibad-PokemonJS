@@ -14,7 +14,6 @@
     />
     <link rel="stylesheet" href="css/font-awesome.css" />
     <link rel="stylesheet" href="css/bootstrap.css" />
-    <link rel="stylesheet" href="css/lightbox.min.css" />
     <link rel="stylesheet" href="css/styles.css" />
     <!-- <title>Pokemon Tournament</title> -->
     <title>Act</title>
@@ -30,7 +29,8 @@
         <h5 class="text-primary fs-3 fw-bold text-uppercase">Welcome to</h5>
         <h1 id="typing-text" class="display-1 fw-bold text-white"></h1>
         <p class="roles text-white text-uppercase fs-4">
-          <span>Datu Hasmin Ibad - </span><span>SSCGi Trainee</span>
+          <span>SSCGi Trainees</span>
+          <!-- <span>Datu Hasmin Ibad - </span><span>SSCGi Trainees</span> -->
         </p>
         <a
           href="#"
@@ -46,25 +46,9 @@
         </a>
       </div>
     </header>
-    <!-- <a
-      href="#"
-      class="btn btn-outline-light btn-lg mt-3"
-      data-bs-toggle="modal"
-      data-bs-target="#starterChoicesModal"
-    >
-      <div class="d-flex">starterChoices
-        <div class="text-start">
-          <span>Play Game</span>
-        </div>
-      </div>
-    </a> -->
-    <div
-      class="modal fade"
-      id="gameChoicesModal"
-      tabindex="-1"
-      aria-labelledby="gameChoicesModalLabel"
-      aria-hidden="true"
-    >
+
+    <!-- Game Choice Modal -->
+    <div class="modal fade" id="gameChoicesModal" tabindex="-1">
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header">
@@ -75,7 +59,6 @@
               type="button"
               class="btn-close"
               data-bs-dismiss="modal"
-              aria-label="Close"
             ></button>
           </div>
 
@@ -131,217 +114,37 @@
       </div>
     </div>
 
-    <!-- <section id="section-pokemonSelection">
-      <div id="pokemonSelection"></div>
-    </section> -->
-
-    <div
-      class="modal fade"
-      id="starterChoicesModal"
-      tabindex="-1"
-      aria-labelledby="starterChoicesModalLabel"
-      aria-hidden="true"
-    >
+    <!-- Pokemon Selection Modal -->
+    <div class="modal fade" id="pokemonSelectionModal" tabindex="-1">
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="starterChoicesModalLabel">
-              Choose Your Starter
+            <h5 class="modal-title" id="pokemonSelectionModalLabel">
+              Choose Your Pokémon (Max 3, No Repeats)
             </h5>
             <button
               type="button"
               class="btn-close"
               data-bs-dismiss="modal"
-              aria-label="Close"
             ></button>
           </div>
 
           <div class="modal-body">
-            <section id="section-starterChoices">
-              <div class="container d-flex justify-content-center">
-                <div class="row">
-                  <div class="col-xl-4 pokemon-card">
-                    <img
-                      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png"
-                      alt="Venusaur"
-                    />
-                    <p>Venusaur</p>
-                    <p class="text-muted">Type: Grass/Poison</p>
-                    <p class="text-muted">Overgrow</p>
-                    <div class="row">
-                      <div class="col">
-                        <p class="text-muted">Earthquake</p>
-                        <p class="text-muted">Sludge Bomb</p>
-                      </div>
-                      <div class="col">
-                        <p class="text-muted">Petal Dance</p>
-                        <p class="text-muted">Solarbeam</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-xl-4 pokemon-card">
-                    <img
-                      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png"
-                      alt="Charizard"
-                    />
-                    <p>Charizard</p>
-                    <p class="text-muted">Type: Fire/Flying</p>
-                    <p class="text-muted">Ability: Blaze</p>
-                    <div class="row">
-                      <div class="col">
-                        <p class="text-muted">Move: Scratch</p>
-                        <p class="text-muted">Move: Ember</p>
-                      </div>
-                      <div class="col">
-                        <p class="text-muted">Move: Flamethrower</p>
-                        <p class="text-muted">Move: Fire Spin</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-xl-4 pokemon-card">
-                    <img
-                      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png"
-                      alt="Blastoise"
-                    />
-                    <p>Blastoise</p>
-                    <p class="text-muted">Type: Water</p>
-                    <p class="text-muted">Ability: Torrent</p>
-                    <div class="row">
-                      <div class="col">
-                        <p class="text-muted">Move: Tackle</p>
-                        <p class="text-muted">Move: Water Gun</p>
-                      </div>
-                      <div class="col">
-                        <p class="text-muted">Move: Bubble</p>
-                        <p class="text-muted">Move: Hydro Pump</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-xl-4 pokemon-card">
-                    <img
-                      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/389.png"
-                      alt="Torterra"
-                    />
-                    <p>Torterra</p>
-                    <p class="text-muted">Type: Grass/Ground</p>
-                    <p class="text-muted">Ability: Overgrow</p>
-                    <div class="row">
-                      <div class="col">
-                        <p class="text-muted">Move: Tackle</p>
-                        <p class="text-muted">Move: Leaf Storm</p>
-                      </div>
-                      <div class="col">
-                        <p class="text-muted">Move: Earthquake</p>
-                        <p class="text-muted">Move: Crunch</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-xl-4 pokemon-card">
-                    <img
-                      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/392.png"
-                      alt="Infernape"
-                    />
-                    <p>Infernape</p>
-                    <p class="text-muted">Type: Fire/Fighting</p>
-                    <p class="text-muted">Ability: Blaze</p>
-                    <div class="row">
-                      <div class="col">
-                        <p class="text-muted">Move: Scratch</p>
-                        <p class="text-muted">Move: Flame Wheel</p>
-                      </div>
-                      <div class="col">
-                        <p class="text-muted">Move: Close Combat</p>
-                        <p class="text-muted">Move: Flare Blitz</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-xl-4 pokemon-card">
-                    <img
-                      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/395.png"
-                      alt="Empoleon"
-                    />
-                    <p>Empoleon</p>
-                    <p class="text-muted">Type: Water/Steel</p>
-                    <p class="text-muted">Ability: Torrent</p>
-                    <div class="row">
-                      <div class="col">
-                        <p class="text-muted">Move: Tackle</p>
-                        <p class="text-muted">Move: Bubble Beam</p>
-                      </div>
-                      <div class="col">
-                        <p class="text-muted">Move: Drill Peck</p>
-                        <p class="text-muted">Move: Hydro Pump</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-xl-4 pokemon-card">
-                    <img
-                      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/254.png"
-                      alt="Sceptile"
-                    />
-                    <p>Sceptile</p>
-                    <p class="text-muted">Type: Grass</p>
-                    <p class="text-muted">Ability: Overgrow</p>
-                    <div class="row">
-                      <div class="col">
-                        <p class="text-muted">Move: Pound</p>
-                        <p class="text-muted">Move: Leaf Blade</p>
-                      </div>
-                      <div class="col">
-                        <p class="text-muted">Move: Quick Attack</p>
-                        <p class="text-muted">Move: Leaf Storm</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-xl-4 pokemon-card">
-                    <img
-                      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/257.png"
-                      alt="Blaziken"
-                    />
-                    <p>Blaziken</p>
-                    <p class="text-muted">Type: Fire/Fighting</p>
-                    <p class="text-muted">Ability: Blaze</p>
-                    <div class="row">
-                      <div class="col">
-                        <p class="text-muted">Move: Scratch</p>
-                        <p class="text-muted">Move: Blaze Kick</p>
-                      </div>
-                      <div class="col">
-                        <p class="text-muted">Move: Double Kick</p>
-                        <p class="text-muted">Move: Flare Blitz</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-xl-4 pokemon-card">
-                    <img
-                      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/260.png"
-                      alt="Swampert"
-                    />
-                    <p>Swampert</p>
-                    <p class="text-muted">Type: Water/Ground</p>
-                    <p class="text-muted">Ability: Torrent</p>
-                    <div class="row">
-                      <div class="col">
-                        <p class="text-muted">Move: Tackle</p>
-                        <p class="text-muted">Move: Mud Shot</p>
-                      </div>
-                      <div class="col">
-                        <p class="text-muted">Move: Surf</p>
-                        <p class="text-muted">Move: Earthquake</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
+            <div id="pokemonSelection" class="row">
+              <!-- Pokémon choices will be populated dynamically here -->
+            </div>
+            <div id="selectedPokemons" class="mt-3">
+              <h5>Selected Pokémon:</h5>
+              <ul id="selectedPokemonsList"></ul>
+            </div>
           </div>
+
           <div class="modal-footer">
             <button
               id="submitPokemonSelection"
               type="button"
               class="btn btn-primary"
+              onclick="submitPokemonSelection()"
             >
               Submit
             </button>
@@ -356,10 +159,10 @@
         </div>
       </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/lightbox-plus-jquery.min.js"></script>
-    <script src="js/fire.js"></script>
+    <script src="js/pokemonMoves.js"></script>
+
     <script src="js/pokemons.js"></script>
 
     <script src="js/script.js"></script>

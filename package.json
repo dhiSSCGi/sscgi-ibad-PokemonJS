@@ -1,4 +1,19 @@
 {
+  "name": "pokemonjs",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/dhiSSCGi/sscgi-ibad-PokemonJS#readme",
+  "bugs": {
+    "url": "https://github.com/dhiSSCGi/sscgi-ibad-PokemonJS/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dhiSSCGi/sscgi-ibad-PokemonJS.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
   "scripts": {
     "sass:build": "sass --no-source-map scss:css",
     "sass:watch": "sass --no-source-map --watch scss:css"
