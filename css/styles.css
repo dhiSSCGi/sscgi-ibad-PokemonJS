@@ -1,0 +1,187 @@
+.header {
+  background: #151515 url("../images/PokemonTournament.png") no-repeat center;
+  background-size: cover;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.header .text-container {
+  z-index: 10;
+}
+
+.header .roles {
+  font-family: "lora-regular", serif;
+}
+
+.card .gameChoice {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card-body {
+  flex-grow: 1;
+}
+
+.trainers {
+  color: #ffffff;
+  background: #00d5ff;
+  font-size: 1.2rem;
+  padding: 0.2rem 0.4rem;
+  margin: 1px;
+  font-family: Arial;
+  border: 2px solid #ff6347;
+  border-radius: 4px;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px #0a0121;
+}
+
+.pokemon-card {
+  margin: 2px;
+  cursor: pointer;
+}
+
+.pokemon-card:hover {
+  /* border: 1px solid #00d5ff; */
+  transform: scale(1.01);
+}
+
+.pokemon-card img {
+  width: 100%;
+  height: 150px;
+}
+
+.pokemon-card .card-body {
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.pokemon-card .card-title {
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: rgb(255, 255, 255);
+}
+
+.moves-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.move {
+  background-color: #f0f0f0;
+  padding: 5px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 14px;
+  border: 2px solid #ddd;
+}
+
+.highlighted {
+  border: 4px solid #00d5ff;
+  box-shadow: 0 0 10px rgba(0, 213, 255, 0.5);
+}
+
+.scrollable-container {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.Fire {
+  background-color: #ff4500;
+  color: white;
+}
+
+.Water {
+  background-color: #1e90ff;
+  color: white;
+}
+
+.Grass {
+  background-color: #32cd32;
+  color: white;
+}
+
+.Flying {
+  background-color: #87ceeb;
+  color: black;
+}
+
+.Fighting {
+  background-color: #d2691e;
+  color: white;
+}
+
+.Normal {
+  background-color: #d3d3d3;
+  color: black;
+}
+
+.Dark {
+  background-color: #000000;
+  color: white;
+}
+
+.Psychic {
+  background-color: #8a2be2;
+  color: white;
+}
+
+.Bug {
+  background-color: #adff2f;
+  color: black;
+}
+
+.Dragon {
+  background-color: #1621f0a2;
+  color: white;
+}
+
+.Poison {
+  background-color: #800080;
+  color: white;
+}
+
+.Steel {
+  background-color: #b0c4de;
+  color: black;
+}
+
+.Ghost {
+  background-color: #6a5acd;
+  color: white;
+}
+
+.Ice {
+  background-color: #00ffff;
+  color: black;
+}
+
+.Electric {
+  background-color: #ffff00;
+  color: black;
+}
+
+.Rock {
+  background-color: #808080;
+  color: white;
+}
+
+.Ground {
+  background-color: #8b4513;
+  color: white;
+}

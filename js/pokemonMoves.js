@@ -66,7 +66,7 @@ let psychic = {
   damage: 90,
   type: "Psychic",
   pp: 8,
-  effect: "Special Defense",
+  effect: "Minus Special Defense",
   category: "Special Attack",
 };
 
@@ -75,7 +75,7 @@ let signalBeam = {
   damage: 90,
   type: "Bug",
   pp: 8,
-  effect: "Confuse",
+  effect: "Paralyzed",
   category: "Special Attack",
 };
 
@@ -84,7 +84,7 @@ let dragonPulse = {
   damage: 90,
   type: "Dragon",
   pp: 8,
-  effect: "",
+  effect: "Paralyzed",
   category: "Special Attack",
 };
 
@@ -102,7 +102,7 @@ let flashCannon = {
   damage: 90,
   type: "Steel",
   pp: 8,
-  effect: "Special Defense",
+  effect: "Minus Special Defense",
   category: "Special Attack",
 };
 
@@ -111,7 +111,7 @@ let shadowBall = {
   damage: 90,
   type: "Ghost",
   pp: 8,
-  effect: "Special Defense",
+  effect: "Minus Special Defense",
   category: "Special Attack",
 };
 
@@ -165,7 +165,7 @@ let wingAttack = {
   damage: 90,
   type: "Flying",
   pp: 8,
-  effect: "",
+  effect: "Flinch",
   category: "Attack",
 };
 
@@ -210,7 +210,7 @@ let bugBite = {
   damage: 90,
   type: "Bug",
   pp: 8,
-  effect: "Defense",
+  effect: "Minus Defense",
   category: "Attack",
 };
 
@@ -219,7 +219,7 @@ let dragonClaw = {
   damage: 90,
   type: "Dragon",
   pp: 8,
-  effect: "",
+  effect: "Minus Defense",
   category: "Attack",
 };
 
@@ -381,7 +381,7 @@ let curse = {
   damage: 0,
   type: "Ghost",
   pp: 8,
-  effect: "HP",
+  effect: "Minus HP",
   category: "Status",
 };
 
@@ -436,5 +436,428 @@ let quickAttack = {
   type: "Normal",
   pp: 8,
   effect: "Priority",
+  category: "Attack",
+};
+///////////////////////////////
+let earthquake = {
+  name: "Earthquake⛰️",
+  damage: 100,
+  type: "Ground",
+  pp: 10,
+  effect: "Minus Defense",
+  category: "Attack",
+};
+
+let stoneEdge = {
+  name: "Stone Edge🪨",
+  damage: 100,
+  type: "Rock",
+  pp: 5,
+  effect: "Critical",
+  category: "Attack",
+};
+
+let hammerArm = {
+  name: "Hammer Arm🥊",
+  damage: 100,
+  type: "Fighting",
+  pp: 5,
+  effect: "Minus Speed",
+  category: "Attack",
+};
+
+let rockSlide = {
+  name: "Rock Slide🪨",
+  damage: 75,
+  type: "Rock",
+  pp: 10,
+  effect: "Flinch",
+  category: "Attack",
+};
+
+let wildCharge = {
+  name: "Wild Charge⚡",
+  damage: 90,
+  type: "Electric",
+  pp: 5,
+  effect: "Recoil",
+  category: "Attack",
+};
+
+let extremeSpeed = {
+  name: "Extreme Speed⬜",
+  damage: 80,
+  type: "Normal",
+  pp: 5,
+  effect: "Priority",
+  category: "Attack",
+};
+
+let crunch = {
+  name: "Crunch⬛",
+  damage: 80,
+  type: "Dark",
+  pp: 5,
+  effect: "Minus Defense",
+  category: "Attack",
+};
+
+let fly = {
+  name: "Fly🪽",
+  damage: 90,
+  type: "Flying",
+  pp: 5,
+  effect: "Flinch",
+  category: "Attack",
+};
+
+let aeroblast = {
+  name: "Aeroblast🪽",
+  damage: 100,
+  type: "Flying",
+  pp: 5,
+  effect: "Critical",
+  category: "Attack",
+};
+
+let recover = {
+  name: "Recover⬜",
+  damage: 0,
+  type: "Normal",
+  pp: 10,
+  effect: "Heal",
+  category: "Status",
+};
+
+let braveBird = {
+  name: "Brave Bird",
+  damage: 120,
+  type: "Flying",
+  pp: 5,
+  effect: "Recoil",
+  category: "Attack",
+};
+
+let airSlash = {
+  name: "Air Slash🪽",
+  damage: 75,
+  type: "Flying",
+  pp: 5,
+  effect: "Flinch",
+  category: "Attack",
+};
+
+let heatWave = {
+  name: "Heat Wave🔥",
+  damage: 95,
+  type: "Fire",
+  pp: 5,
+  effect: "Burn",
+  category: "Attack",
+};
+
+let uTurn = {
+  name: "U-turn🪲",
+  damage: 70,
+  type: "Bug",
+  pp: 5,
+  effect: "Flinch",
+  category: "Attack",
+};
+
+let solarBeam = {
+  name: "Solar Beam🍃",
+  damage: 120,
+  type: "Grass",
+  pp: 5,
+  effect: "Minus Special Defense",
+  category: "Attack",
+};
+
+let softBoiled = {
+  name: "Soft-Boiled⬜",
+  damage: 0,
+  type: "Normal",
+  pp: 10,
+  effect: "Heal",
+  category: "Status",
+};
+
+let seismicToss = {
+  name: "Seismic Toss🥊",
+  damage: 0,
+  type: "Fighting",
+  pp: 5,
+  effect: "100",
+  category: "Attack",
+};
+
+let healBell = {
+  name: "Heal Bell⬜",
+  damage: 0,
+  type: "Normal",
+  pp: 5,
+  effect: "Cure",
+  category: "Status",
+};
+
+let closeCombat = {
+  name: "Close Combat🥊",
+  damage: 120,
+  type: "Fighting",
+  pp: 5,
+  effect: "Recoil",
+  category: "Attack",
+};
+
+let megahorn = {
+  name: "Megahorn🪲",
+  damage: 120,
+  type: "Bug",
+  pp: 5,
+  effect: "Critical",
+  category: "Attack",
+};
+
+let pursuit = {
+  name: "Pursuit",
+  damage: 40,
+  type: "Dark",
+  pp: 10,
+  effect: "Flinch",
+  category: "Attack",
+};
+
+let leechSeed = {
+  name: "Leech Seed 🍃",
+  damage: 0,
+  type: "Grass",
+  pp: 10,
+  effect: "Leech",
+  category: "Status",
+};
+
+let stealthRock = {
+  name: "Stealth Rock🪨",
+  damage: 0,
+  type: "Rock",
+  pp: 5,
+  effect: "Sets up entry hazards that damage foes when they switch in",
+  category: "Status",
+};
+
+let gyroBall = {
+  name: "Gyro Ball⚙️",
+  damage: 0,
+  type: "Steel",
+  pp: 5,
+  effect: "Damage increases the slower the user is compared to the target",
+  category: "Attack",
+};
+
+let powerWhip = {
+  name: "Power Whip 🍃",
+  damage: 120,
+  type: "Grass",
+  pp: 5,
+  effect: "May miss",
+  category: "Attack",
+};
+
+let foulPlay = {
+  name: "Foul Play⬛",
+  damage: 95,
+  type: "Dark",
+  pp: 5,
+  effect: "Uses the target's Attack stat to calculate damage",
+  category: "Attack",
+};
+
+let nightDaze = {
+  name: "Night Daze⬛",
+  damage: 85,
+  type: "Dark",
+  pp: 5,
+  effect: "May lower the target's Accuracy",
+  category: "Attack",
+};
+
+let xScissor = {
+  name: "X-Scissor🪲",
+  damage: 80,
+  type: "Bug",
+  pp: 5,
+  effect: "None",
+  category: "Attack",
+};
+
+let crossPoison = {
+  name: "Cross Poison☣️",
+  damage: 70,
+  type: "Poison",
+  pp: 10,
+  effect: "Poison",
+  category: "Attack",
+};
+
+let magnetRise = {
+  name: "Magnet Rise⚡",
+  damage: 0,
+  type: "Electric",
+  pp: 5,
+  effect: "User becomes immune to Ground-type moves for 5 turns",
+  category: "Status",
+};
+
+let outrage = {
+  name: "Outrage🐉",
+  damage: 120,
+  type: "Dragon",
+  pp: 5,
+  effect: "",
+  category: "Attack",
+};
+
+let fireBlast = {
+  name: "Fire Blast🔥",
+  damage: 110,
+  type: "Fire",
+  pp: 5,
+  effect: "Burn",
+  category: "Attack",
+};
+
+let fieryDance = {
+  name: "Fiery Dance🔥",
+  damage: 80,
+  type: "Fire",
+  pp: 5,
+  effect: "Add Special Attack",
+  category: "Attack",
+};
+
+let bugBuzz = {
+  name: "Bug Buzz🪲",
+  damage: 90,
+  type: "Bug",
+  pp: 5,
+  effect: "May lower the target's Special Defense",
+  category: "Attack",
+};
+
+let aerialAce = {
+  name: "Aerial Ace🪽",
+  damage: 60,
+  type: "Flying",
+  pp: 5,
+  effect: "Never misses",
+  category: "Attack",
+};
+
+let flareBlitz = {
+  name: "Flare Blitz🔥",
+  damage: 120,
+  type: "Fire",
+  pp: 5,
+  effect: "User receives recoil damage",
+  category: "Attack",
+};
+
+let darkestLariat = {
+  name: "Darkest Lariat⬛",
+  damage: 85,
+  type: "Dark",
+  pp: 5,
+  effect: "Ignores the target's Defense stat",
+  category: "Attack",
+};
+
+let fakeOut = {
+  name: "Fake Out⬜",
+  damage: 40,
+  type: "Normal",
+  pp: 5,
+  effect: "Flinch",
+  category: "Attack",
+};
+
+let snarl = {
+  name: "Snarl⬛",
+  damage: 55,
+  type: "Dark",
+  pp: 5,
+  effect: "Lowers the target's Special Attack",
+  category: "Attack",
+};
+
+let ironTail = {
+  name: "Iron Tail⚙️",
+  damage: 100,
+  type: "Steel",
+  pp: 5,
+  effect: "May lower the target's Defense",
+  category: "Attack",
+};
+
+let hiddenPower = {
+  name: "Hidden Power⬜",
+  damage: 60,
+  type: "Normal",
+  pp: 5,
+  effect: "Varies based on the user's IVs",
+  category: "Attack",
+};
+
+let blizzard = {
+  name: "Blizzard",
+  damage: 110,
+  type: "Ice",
+  pp: 5,
+  effect: "May freeze the target",
+  category: "Attack",
+};
+
+let woodHammer = {
+  name: "Wood Hammer 🍃",
+  damage: 120,
+  type: "Grass",
+  pp: 5,
+  effect: "User takes recoil damage",
+  category: "Attack",
+};
+
+let iceShard = {
+  name: "Ice Shard",
+  damage: 40,
+  type: "Ice",
+  pp: 10,
+  effect: "Priority move",
+  category: "Attack",
+};
+
+let energyBall = {
+  name: "Energy Ball 🍃",
+  damage: 90,
+  type: "Grass",
+  pp: 5,
+  effect: "May lower the target's Special Defense",
+  category: "Attack",
+};
+
+let earthPower = {
+  name: "Earth Power⛰️",
+  damage: 90,
+  type: "Ground",
+  pp: 5,
+  effect: "May lower the target's Special Defense",
+  category: "Attack",
+};
+
+let rapidSpin = {
+  name: "Rapid Spin⬜",
+  damage: 50,
+  type: "Normal",
+  pp: 5,
+  effect: "Removes hazards from the user's side of the field",
   category: "Attack",
 };

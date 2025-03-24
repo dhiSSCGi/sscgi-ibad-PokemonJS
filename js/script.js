@@ -9,19 +9,25 @@ var matchWinnerSound = new Audio(
   "/Users/dgibad/Documents/PokemonJS/sounds/pokemon-battle.mp3"
 );
 function runTypingEffect() {
-  const text = "SSCGi Pokemon Battle";
+  const text = "SSCGI Pokemon Battle";
   const typingElement = document.getElementById("typing-text");
   const typingDelay = 150;
   typeText(text, typingElement, typingDelay);
 }
 
 function typeText(text, typingElement, delay) {
+  typingElement.textContent = "";
   for (let i = 0; i < text.length; i++) {
     setTimeout(() => {
       typingElement.textContent += text.charAt(i);
     }, delay * i);
   }
+
+  setTimeout(() => {
+    typeText(text, typingElement, delay);
+  }, delay * text.length + 2000);
 }
+
 document.addEventListener("DOMContentLoaded", runTypingEffect);
 
 //functions
@@ -78,7 +84,7 @@ function loadPokemonSelection() {
   pokemons.forEach((pokemon) => {
     pokemonSelectionHTML += `
       <div class="col-md-4">
-        <div class="card pokemon-card text-center">
+        <div class="card pokemon-card text-center ${pokemon.type[0]}">
           <div class="card-body">
             <img src="${pokemon.image}" alt="${pokemon.name}" class="img-fluid mb-3" />
             <h5 class="card-title">${pokemon.name}</h5>
@@ -86,10 +92,10 @@ function loadPokemonSelection() {
             <p><strong>Abilities:</strong> ${pokemon.ability}</p>
             <p><strong>Moves:</strong></p>
             <div class="moves-grid">
-              <div class="move">${pokemon.moves[0]}</div>
-              <div class="move">${pokemon.moves[1]}</div>
-              <div class="move">${pokemon.moves[2]}</div>
-              <div class="move">${pokemon.moves[3]}</div>
+              <div class="move ${pokemon.moves[0].type}">${pokemon.moves[0].name}</div>
+              <div class="move ${pokemon.moves[1].type}"">${pokemon.moves[1].name}</div>
+              <div class="move ${pokemon.moves[2].type}"">${pokemon.moves[2].name}</div>
+              <div class="move ${pokemon.moves[3].type}"">${pokemon.moves[3].name}</div>
             </div>
           </div>
         </div>
@@ -113,7 +119,7 @@ function loadPokemonSelection() {
         console.log(`${pokemonName} card unclicked!`);
         this.classList.remove("highlighted", "clicked");
         selectedPokemons = selectedPokemons.filter(
-          (name) => name !== pokemonName
+          (selectedPokemon) => selectedPokemon.name !== pokemonName
         );
         clickCount--;
         updateSelectedPokemonsList();
@@ -148,18 +154,12 @@ function getRandomNumber(max) {
   return Math.floor(Math.random() * max);
 }
 
-const playerNames = [
-  "Vince",
-  "Steven",
-  "Jessie",
-  "Patrick",
-  "Rizaldee",
-  "Nicole",
-  "Datz",
-  "Neil",
-  "Jayson",
-];
-
+function resetData() {
+  playerNames.length = 0;
+  playerNames.push(...originalPlayerNames);
+  // console.log("Data has been reset.");
+}
+const originalPlayerNames = [...playerNames];
 function generateRandomPlayer() {
   const nameIndex = getRandomNumber(playerNames.length);
   const name = playerNames.splice(nameIndex, 1)[0];
@@ -171,6 +171,7 @@ function generateRandomPlayer() {
     const pokemonIndex = getRandomNumber(availablePokemons.length);
     randomPokemons.push(availablePokemons.splice(pokemonIndex, 1)[0]);
   }
+
   return {
     name: name,
     pokemons: randomPokemons,
@@ -183,16 +184,31 @@ let player1 = {
   pokemons: [],
 };
 
+let player2 = {
+  name: null,
+  pokemons: [],
+};
+
 function choosingNumOfPlayers(numPlayers) {
   let gender;
   $("#gameChoicesModal").modal("hide");
-
   if (numPlayers == "1") {
-    let name = prompt("Enter your name");
+    let name = "";
+
+    while (name == "") {
+      name = prompt("Enter your name");
+    }
     player1.name = name;
     loadPokemonSelection();
   } else if (numPlayers == "0") {
     generateRandomTournament();
+  } else if (numPlayers == "2") {
+    // alert("Please select the number of players.");
+    let namePlayer1 = prompt("Enter Player 1 name");
+    player1.name = namePlayer1;
+    let namePlayer2 = prompt("Enter Player 2 name");
+
+    player2.name = namePlayer2;
   } else {
     alert("Please select the number of players.");
   }
@@ -208,13 +224,15 @@ function submitPokemonSelection() {
 
   $("#pokemonSelectionModal").modal("hide");
   console.log(player1);
+
   startSinglePlayerGame();
 }
 
-function loggingSelectedPokemon(trainer, pokemon) {
-  styledLog(`${trainer}🗣: I choose ${pokemon.name}`, "changePokemon");
+function closePokemonSelection() {
+  selectedPokemons = [];
+  updateSelectedPokemonsList();
+  $("#pokemonSelectionModal").modal("hide");
 }
-
 function startSinglePlayerGame() {
   const players = [];
   players.push(player1);
@@ -228,7 +246,7 @@ function startSinglePlayerGame() {
   );
 
   styledLog(
-    `Here are the Contestants:\n ${players[0].name} from IT Department🧔🏻\n ${players[1].name} from R&D Department🧑🏻\n ${players[2].name} from SysDev Department🙋🏻‍♂️\n ${players[3].name} from HR Department 👨🏻\n ${players[4].name} from ARIS Department👨🏻‍💼\n ${players[5].name} from Marketing Department👤\n ${players[6].name} from AML Department👨\n ${players[7].name} from DMS Department👦🏻`,
+    `Here are the Contestants:\n ${players[0].name} from IT Department\n ${players[1].name} from R&D Department\n ${players[2].name} from SysDev Department\n ${players[3].name} from HR Department \n ${players[4].name} from ARIS Department\n ${players[5].name} from Marketing Department\n ${players[6].name} from AML Department\n ${players[7].name} from DMS Department`,
     "trainers"
   );
 
@@ -236,191 +254,232 @@ function startSinglePlayerGame() {
     `Match 1: ${players[0].name} vs ${players[1].name} ⚔️`,
     "introMatch"
   );
+  let match1Winner = singleBattle(players[0], players[1]);
+  if (match1Winner == players[1]) {
+    alert("You lost the match. Better luck next time!");
+  }
+  styledLog(`Match1: ${match1Winner.name} wins the match ⚔️`, "matchResult");
+  alert(`${match1Winner.name} won first match`);
 
-  const winnerMatch1 = singleBattle(players[0], players[1]);
+  styledLog(
+    `Match 2: ${players[2].name} vs ${players[3].name} ⚔️`,
+    "introMatch"
+  );
+  let match2Winner = startRandomBattle(players[2], players[3]);
+  styledLog(`Match2: ${match2Winner.name} wins the match ⚔️`, "matchResult");
+  alert(`${match2Winner.name} won second match`);
 
-  if (winner === players[0].name) {
-    styledLog(`${players[0].name} wins the match! 🎉`, "matchWin");
-  } else if (winner === players[1].name) {
-    styledLog(`${players[1].name} wins the match! 🎉`, "matchWin");
+  styledLog(
+    `Match 3: ${players[4].name} vs ${players[5].name} ⚔️`,
+    "introMatch"
+  );
+
+  let match3Winner = startRandomBattle(players[4], players[5]);
+  styledLog(`Match3: ${match3Winner.name} wins the match ⚔️`, "matchResult");
+  alert(`${match3Winner.name} won third match`);
+
+  styledLog(
+    `Match 4: ${players[6].name} vs ${players[7].name} ⚔️`,
+    "introMatch"
+  );
+
+  let match4Winner = startRandomBattle(players[6], players[7]);
+  styledLog(`Match4: ${match4Winner.name} wins the match ⚔️`, "matchResult");
+  alert(`${match4Winner.name} won fourth match`);
+
+  let match5Winner;
+  if (match1Winner == players[0]) {
+    styledLog(
+      `Semi Finals Match 1: ${match1Winner.name} vs ${match2Winner.name} ⚔️`,
+      "introMatch"
+    );
+    match5Winner = singleBattle(match1Winner, match2Winner);
+    if (match5Winner == match2Winner) {
+      alert("You lost the match. Better luck next time!");
+    }
+    styledLog(
+      `Semi Finals Match 1: ${match5Winner.name} wins the match ⚔️`,
+      "matchResult"
+    );
   } else {
-    styledLog("The match ended in a tie! 🤝", "matchTie");
+    styledLog(
+      `Semi Finals Match 1: ${match1Winner.name} vs ${match2Winner.name} ⚔️`,
+      "introMatch"
+    );
+    match5Winner = new startRandomBattle(match1Winner, match2Winner);
+    styledLog(
+      `Semi Finals Match 1: ${match5Winner.name} wins the match ⚔️`,
+      "matchResult"
+    );
+  }
+
+  alert(`${match5Winner.name} won Semi-Finals First Match`);
+
+  styledLog(
+    `Semi Finals Match 2: ${match3Winner.name} vs ${match4Winner.name} ⚔️`,
+    "introMatch"
+  );
+
+  let match6Winner = new startRandomBattle(match3Winner, match4Winner);
+  styledLog(
+    `Semi Finals Match 2: ${match6Winner.name} wins the match ⚔️`,
+    "matchResult"
+  );
+  alert(`${match6Winner.name} won Semi-Finals Second Match`);
+
+  if (match5Winner == players[0]) {
+    styledLog(
+      `Finals: ${match5Winner.name} vs ${match6Winner.name} ⚔️`,
+      "introMatch"
+    );
+    let finals = singleBattle(match5Winner, match6Winner);
+    if (finals == match6Winner) {
+      alert("You lost the match. Better luck next time!");
+    }
+    styledLog(`Finals: ${finals.name} wins the tournament ⚔️`, "matchResult");
+  } else {
+    styledLog(
+      `Finals: ${match5Winner.name} vs ${match6Winner.name} ⚔️`,
+      "introMatch"
+    );
+    let finals = startRandomBattle(match5Winner, match6Winner);
+    styledLog(`Finals: ${finals.name} wins the tournament ⚔️`, "matchResult");
+    alert(`${finals.name} won the Tournament`);
+
+    resetData();
   }
 }
 
 function singleBattle(player1, player2) {
+  // playMatchSound3.play();
+
+  // setTimeout(() => {
+  //   playMatchSound3.pause();
+  //   playMatchSound3.currentTime = 0;
+  // }, 3000);
+
+  // setTimeout(() => {
+  //   setInterval(() => {
+  //     playMatchSound11.play();
+  //   }, 0);
+  // }, 3000);
+
   let winner;
   let outOfPokemon = false;
-  console.log(player1.pokemons);
-  console.log(player2.pokemons);
 
-  let player1Pokemons = player1.pokemons;
-  let player2Pokemons = player2.pokemons;
-  console.log(`First Pokemon of player 1: ${player1Pokemons[0].hp}`);
-  console.log(`Second Pokemon of player 1: ${player1Pokemons[0].hp}`);
-  console.log(`Third Pokemon of player 1: ${player1Pokemons[0].hp}`);
-  console.log(`First Pokemon of player 2: ${player2Pokemons[0].hp}`);
-  console.log(`Second Pokemon of player 2: ${player2Pokemons[0].hp}`);
-  console.log(`Third Pokemon of player 2: ${player2Pokemons[0].hp}`);
+  let player1Pokemons = JSON.parse(JSON.stringify(player1.pokemons));
+  let player2Pokemons = JSON.parse(JSON.stringify(player2.pokemons));
 
-  let firstPlayer1Pokemon = player1Pokemons[0];
-  let firstPlayer2Pokemon = player2Pokemons[0];
-  let secondPlayer1Pokemon = player1Pokemons[1];
-  let secondPlayer2Pokemon = player2Pokemons[1];
-  let thirdPlayer1Pokemon = player1Pokemons[2];
-  let thirdPlayer2Pokemon = player2Pokemons[2];
+  const firstPlayer1Pokemon = player1Pokemons[0];
+  const firstPlayer2Pokemon = player2Pokemons[0];
+  const secondPlayer1Pokemon = player1Pokemons[1];
+  const secondPlayer2Pokemon = player2Pokemons[1];
+  const thirdPlayer1Pokemon = player1Pokemons[2];
+  const thirdPlayer2Pokemon = player2Pokemons[2];
 
-  loggingSelectedPokemon(player1.name, firstPlayer1Pokemon);
-  loggingSelectedPokemon(player2.name, firstPlayer2Pokemon);
+  let firstPlayer1PokemonFainted = false;
+  let firstPlayer2PokemonFainted = false;
+  let secondPlayer1PokemonFainted = false;
+  let secondPlayer2PokemonFainted = false;
+  let thirdPlayer1PokemonFainted = false;
+  let thirdPlayer2PokemonFainted = false;
+
+  let currentPlayer1Pokemon = firstPlayer1Pokemon;
+  let currentPlayer2Pokemon = firstPlayer2Pokemon;
+
+  loggingSelectedPokemon(player1.name, currentPlayer1Pokemon, "First Pokemon");
+  loggingSelectedPokemon(player2.name, currentPlayer2Pokemon, "First Pokemon");
 
   while (!outOfPokemon) {
-    const pokemonMove = prompt(
-      `1. ${firstPlayer1Pokemon.moves[0].name}\n 2. ${firstPlayer1Pokemon.moves[1]}\n 3. ${firstPlayer1Pokemon.moves[2]}\n 4. ${firstPlayer1Pokemon.moves[3]}`
-    );
-
-    let moveIndex = parseInt(pokemonMove) - 1;
-    if (moveIndex < 0 || moveIndex > 3) {
-      alert("Please choose a valid move (1-4).");
-      continue;
-    }
-
-    let selectedMove = firstPlayer1Pokemon.moves[moveIndex];
     let randomMove = Math.floor(Math.random() * 4);
-    let opponentMove = firstPlayer2Pokemon.moves[randomMove];
+    let selectedMoveOptions;
+
+    while (true) {
+      selectedMoveOptions = prompt(
+        `Choose your ${currentPlayer1Pokemon.name}'s moves:\n 1: ${currentPlayer1Pokemon.moves[0].name}\n 2: ${currentPlayer1Pokemon.moves[1].name}\n 3: ${currentPlayer1Pokemon.moves[2].name}\n 4: ${currentPlayer1Pokemon.moves[3].name}`
+      );
+
+      if (selectedMoveOptions >= 1 && selectedMoveOptions <= 4) {
+        break;
+      } else {
+        alert("Invalid input. Please choose a number between 1 and 4.");
+      }
+    }
+    let selectedMove = currentPlayer1Pokemon.moves[selectedMoveOptions - 1];
+    let opponentMove = currentPlayer2Pokemon.moves[randomMove];
 
     let result = pokemonAttack(
-      firstPlayer1Pokemon,
+      currentPlayer1Pokemon,
       selectedMove,
-      firstPlayer2Pokemon,
+      currentPlayer2Pokemon,
       opponentMove
     );
+    currentPlayer1Pokemon.hp = result.player1HP;
+    currentPlayer2Pokemon.hp = result.player2HP;
 
-    if (isOutOfPokemon(player1Pokemons)) {
-      outOfPokemon = true;
-      winner = player2;
-    } else if (isOutOfPokemon(player2Pokemons)) {
-      outOfPokemon = true;
-      winner = player1;
+    if (currentPlayer1Pokemon.hp <= 0) {
+      if (secondPlayer1PokemonFainted === true) {
+        thirdPlayer1PokemonFainted = true;
+        styledLog(`${currentPlayer1Pokemon.name} fainted`, "pokemonFainted");
+
+        outOfPokemon = true;
+        styledLog(`${player1.name} is out of pokemon`);
+
+        winner = player2;
+        return winner;
+      }
+      if (firstPlayer1PokemonFainted === true) {
+        secondPlayer1PokemonFainted = true;
+        styledLog(`${currentPlayer1Pokemon.name} fainted`, "pokemonFainted");
+
+        currentPlayer1Pokemon = thirdPlayer1Pokemon;
+        loggingSelectedPokemon(player1.name, currentPlayer1Pokemon);
+        continue;
+      }
+      firstPlayer1PokemonFainted = true;
+      styledLog(`${currentPlayer1Pokemon.name} fainted`, "pokemonFainted");
+
+      currentPlayer1Pokemon = secondPlayer1Pokemon;
+      loggingSelectedPokemon(
+        player1.name,
+        currentPlayer1Pokemon,
+        "Second Pokemon"
+      );
+    }
+
+    if (currentPlayer2Pokemon.hp <= 0) {
+      if (secondPlayer2PokemonFainted === true) {
+        thirdPlayer2PokemonFainted = true;
+        styledLog(`${currentPlayer2Pokemon.name} fainted`, "pokemonFainted");
+
+        outOfPokemon = true;
+        styledLog(`${player2.name} is out of pokemon`);
+
+        winner = player1;
+        return winner;
+      }
+      if (firstPlayer2PokemonFainted === true) {
+        secondPlayer2PokemonFainted = true;
+        styledLog(`${currentPlayer2Pokemon.name} fainted`, "pokemonFainted");
+
+        currentPlayer2Pokemon = thirdPlayer2Pokemon;
+        loggingSelectedPokemon(player2.name, currentPlayer2Pokemon);
+        continue;
+      }
+      firstPlayer2PokemonFainted = true;
+      styledLog(`${currentPlayer2Pokemon.name} fainted`, "pokemonFainted");
+      currentPlayer2Pokemon = secondPlayer2Pokemon;
+      loggingSelectedPokemon(
+        player2.name,
+        currentPlayer2Pokemon,
+        "Second Pokemon"
+      );
     }
   }
-
-  return winner;
 }
 
 function isOutOfPokemon(pokemons) {
   return pokemons.every((pokemon) => pokemon.hp <= 0);
-}
-
-function pokemonAttack(
-  player1Pokemon,
-  pokemon1Move,
-  player2Pokemon,
-  pokemon2Move
-) {
-  const firstAttacker = determineFirstAttacker(
-    player1Pokemon,
-    pokemon1Move,
-    player2Pokemon,
-    pokemon2Move
-  );
-  const firstDefender = firstAttacker === "Player1" ? "Player2" : "Player1";
-  let prev = { player1HP: player1Pokemon.hp, player2HP: player2Pokemon.hp };
-  console.log(prev);
-
-  if (firstAttacker === "Player1") {
-    let damage = computeDamage(player1Pokemon, pokemon1Move, player2Pokemon);
-    player2Pokemon.hp -= damage;
-    if (player2Pokemon.hp >= 0) {
-      let damage = computeDamage(player2Pokemon, pokemon2Move, player1Pokemon);
-      console.log(damage);
-      player1Pokemon.hp -= damage;
-    }
-    let prev = { player1HP: player1Pokemon.hp, player2HP: player2Pokemon.hp };
-
-    let result = {
-      player1HP: player1Pokemon.hp,
-      player2HP: player2Pokemon.hp,
-    };
-    console.log(result);
-
-    return result;
-  } else {
-    let damage = computeDamage(player2Pokemon, pokemon2Move, player1Pokemon);
-    player1Pokemon.hp -= damage;
-
-    if (player1Pokemon.hp >= 0) {
-      let damage = computeDamage(player1Pokemon, pokemon1Move, player2Pokemon);
-      player2Pokemon.hp -= damage;
-    }
-    let result = {
-      player1HP: player1Pokemon.hp,
-      player2HP: player2Pokemon.hp,
-    };
-
-    console.log(result);
-
-    return result;
-  }
-}
-
-function determineFirstAttacker(
-  player1Pokemon,
-  pokemon1Move,
-  player2Pokemon,
-  pokemon2Move
-) {
-  if (pokemon1Move.effect === "Priority") {
-    console.log("Player1 attacks first due to priority!");
-    return "Player1";
-  } else if (pokemon2Move.effect === "Priority") {
-    console.log("Player2 attacks first due to priority!");
-    return "Player2";
-  }
-
-  if (player1Pokemon.speed >= player2Pokemon.speed) {
-    console.log("Player1 attacks first due to speed!");
-    return "Player1";
-  } else {
-    console.log("Player2 attacks first due to speed!");
-    return "Player2";
-  }
-}
-
-// function attack(attackerPokemon, move, defenderPokemon) {
-//   console.log(${attackerPokemon.name} uses ${move.type} attack!);
-
-//   defenderPokemon.hp -= move.damage;
-//   console.log(${defenderPokemon.name} takes ${move.damage} damage!);
-// }
-
-// function loggingSelectedPokemon(playerName, pokemon) {
-//   console.log(`${playerName} selected ${pokemon.name}`);
-// }
-
-function computeDamage(attacker, move, defender) {
-  let baseDamage = move.damage;
-  console.log(move);
-  const stabDamage = 1.5;
-  const typeAdvantage = 2;
-
-  if (player1.type === move.type) {
-    baseDamage *= stabDamage;
-    console.log(`STAB applied: ${baseDamage}`);
-  }
-
-  if (defender.weakness === move.type) {
-    baseDamage *= typeAdvantage;
-    console.log(`Type advantage applied: ${baseDamage}`);
-  }
-
-  if (defender.strength === move.type) {
-    baseDamage /= typeAdvantage;
-    console.log(`Type disadvantage applied: ${baseDamage}`);
-  }
-
-  let finalDamage = (baseDamage * attacker.attack) / 100;
-  console.log(`Final damage: ${finalDamage}`);
-  return finalDamage;
 }
 
 function generateRandomTournament() {
@@ -435,7 +494,7 @@ function generateRandomTournament() {
   );
 
   styledLog(
-    `Here are the Contestants:\n ${players[0].name} from IT Department🧔🏻\n ${players[1].name} from R&D Department🧑🏻\n ${players[2].name} from SysDev Department🙋🏻‍♂️\n ${players[3].name} from HR Department 👨🏻\n ${players[4].name} from ARIS Department👨🏻‍💼\n ${players[5].name} from Marketing Department👤\n ${players[6].name} from AML Department👨\n ${players[7].name} from DMS Department👦🏻`,
+    `Here are the Contestants:\n ${players[0].name} from IT Department\n ${players[1].name} from R&D Department\n ${players[2].name} from SysDev Department\n ${players[3].name} from HR Department \n ${players[4].name} from ARIS Department\n ${players[5].name} from Marketing Department\n ${players[6].name} from AML Department\n ${players[7].name} from DMS Department`,
     "trainers"
   );
 
@@ -445,6 +504,7 @@ function generateRandomTournament() {
   );
   let match1Winner = new startRandomBattle(players[0], players[1]);
   styledLog(`Match1: ${match1Winner.name} wins the match ⚔️`, "matchResult");
+  alert(`${match1Winner.name} won first match`);
 
   styledLog(
     `Match 2: ${players[2].name} vs ${players[3].name} ⚔️`,
@@ -452,6 +512,7 @@ function generateRandomTournament() {
   );
   let match2Winner = new startRandomBattle(players[2], players[3]);
   styledLog(`Match2: ${match2Winner.name} wins the match ⚔️`, "matchResult");
+  alert(`${match2Winner.name} won second match`);
 
   styledLog(
     `Match 3: ${players[4].name} vs ${players[5].name} ⚔️`,
@@ -460,6 +521,8 @@ function generateRandomTournament() {
 
   let match3Winner = new startRandomBattle(players[4], players[5]);
   styledLog(`Match3: ${match3Winner.name} wins the match ⚔️`, "matchResult");
+  alert(`${match3Winner.name} won third match`);
+
   styledLog(
     `Match 4: ${players[6].name} vs ${players[7].name} ⚔️`,
     "introMatch"
@@ -467,6 +530,8 @@ function generateRandomTournament() {
 
   let match4Winner = new startRandomBattle(players[6], players[7]);
   styledLog(`Match4: ${match4Winner.name} wins the match ⚔️`, "matchResult");
+  alert(`${match4Winner.name} won fourth match`);
+
   styledLog(
     `Semi Finals Match 1: ${match1Winner.name} vs ${match2Winner.name} ⚔️`,
     "introMatch"
@@ -477,6 +542,7 @@ function generateRandomTournament() {
     `Semi Finals Match 1: ${match5Winner.name} wins the match ⚔️`,
     "matchResult"
   );
+  alert(`${match5Winner.name} won Semi-Finals First Match`);
 
   styledLog(
     `Semi Finals Match 2: ${match3Winner.name} vs ${match4Winner.name} ⚔️`,
@@ -488,6 +554,7 @@ function generateRandomTournament() {
     `Semi Finals Match 2: ${match6Winner.name} wins the match ⚔️`,
     "matchResult"
   );
+  alert(`${match6Winner.name} won Semi-Finals Second Match`);
 
   styledLog(
     `Finals: ${match5Winner.name} vs ${match6Winner.name} ⚔️`,
@@ -495,28 +562,30 @@ function generateRandomTournament() {
   );
   let finals = new startRandomBattle(match5Winner, match6Winner);
   styledLog(`Finals: ${finals.name} wins the tournament ⚔️`, "matchResult");
+  alert(`${match6Winner.name} won the tournament`);
+
+  resetData();
 }
 
 function startRandomBattle(player1, player2) {
-  playMatchSound3.play();
+  // playMatchSound3.play();
 
-  setTimeout(() => {
-    playMatchSound3.pause();
-    playMatchSound3.currentTime = 0;
-  }, 3000);
+  // setTimeout(() => {
+  //   playMatchSound3.pause();
+  //   playMatchSound3.currentTime = 0;
+  // }, 3000);
 
-  setTimeout(() => {
-    setInterval(() => {
-      playMatchSound11.play();
-    }, 0);
-  }, 3000);
+  // setTimeout(() => {
+  //   setInterval(() => {
+  //     playMatchSound11.play();
+  //   }, 0);
+  // }, 3000);
 
   let winner;
   let outOfPokemon = false;
-  console.log(player1.pokemons);
-  console.log(player2.pokemons);
+  // console.log(player1.pokemons);
+  // console.log(player2.pokemons);
 
-  // Deep copy the Pokémon arrays to avoid mutating the original player data
   let player1Pokemons = JSON.parse(JSON.stringify(player1.pokemons));
   let player2Pokemons = JSON.parse(JSON.stringify(player2.pokemons));
 
@@ -526,13 +595,6 @@ function startRandomBattle(player1, player2) {
   const secondPlayer2Pokemon = player2Pokemons[1];
   const thirdPlayer1Pokemon = player1Pokemons[2];
   const thirdPlayer2Pokemon = player2Pokemons[2];
-
-  console.log(`First Pokemon of player 1: ${firstPlayer1Pokemon.hp}`);
-  console.log(`Second Pokemon of player 1: ${secondPlayer1Pokemon.hp}`);
-  console.log(`Third Pokemon of player 1: ${thirdPlayer1Pokemon.hp}`);
-  console.log(`First Pokemon of player 2: ${firstPlayer2Pokemon.hp}`);
-  console.log(`Second Pokemon of player 2: ${secondPlayer2Pokemon.hp}`);
-  console.log(`Third Pokemon of player 2: ${thirdPlayer2Pokemon.hp}`);
 
   let firstPlayer1PokemonFainted = false;
   let firstPlayer2PokemonFainted = false;
@@ -544,8 +606,8 @@ function startRandomBattle(player1, player2) {
   let currentPlayer1Pokemon = firstPlayer1Pokemon;
   let currentPlayer2Pokemon = firstPlayer2Pokemon;
 
-  loggingSelectedPokemon(player1.name, currentPlayer1Pokemon);
-  loggingSelectedPokemon(player2.name, currentPlayer2Pokemon);
+  loggingSelectedPokemon(player1.name, currentPlayer1Pokemon, "First Pokemon");
+  loggingSelectedPokemon(player2.name, currentPlayer2Pokemon, "First Pokemon");
 
   while (!outOfPokemon) {
     let randomMove = Math.floor(Math.random() * 4);
@@ -564,39 +626,60 @@ function startRandomBattle(player1, player2) {
     if (currentPlayer1Pokemon.hp <= 0) {
       if (secondPlayer1PokemonFainted === true) {
         thirdPlayer1PokemonFainted = true;
+        styledLog(`${currentPlayer1Pokemon.name} fainted`, "pokemonFainted");
+
         outOfPokemon = true;
+        styledLog(`${player1.name} is out of pokemon`);
+
         winner = player2;
-        console.log(winner);
         return winner;
       }
       if (firstPlayer1PokemonFainted === true) {
         secondPlayer1PokemonFainted = true;
+        styledLog(`${currentPlayer1Pokemon.name} fainted`, "pokemonFainted");
+
         currentPlayer1Pokemon = thirdPlayer1Pokemon;
         loggingSelectedPokemon(player1.name, currentPlayer1Pokemon);
         continue;
       }
       firstPlayer1PokemonFainted = true;
+      styledLog(`${currentPlayer1Pokemon.name} fainted`, "pokemonFainted");
+
       currentPlayer1Pokemon = secondPlayer1Pokemon;
-      loggingSelectedPokemon(player1.name, currentPlayer1Pokemon);
+      loggingSelectedPokemon(
+        player1.name,
+        currentPlayer1Pokemon,
+        "Second Pokemon"
+      );
     }
 
     if (currentPlayer2Pokemon.hp <= 0) {
       if (secondPlayer2PokemonFainted === true) {
         thirdPlayer2PokemonFainted = true;
+        styledLog(`${currentPlayer2Pokemon.name} fainted`, "pokemonFainted");
+
         outOfPokemon = true;
+        styledLog(`${player2.name} is out of pokemon`);
+
         winner = player1;
-        console.log(winner);
         return winner;
       }
       if (firstPlayer2PokemonFainted === true) {
         secondPlayer2PokemonFainted = true;
+        styledLog(`${currentPlayer2Pokemon.name} fainted`, "pokemonFainted");
+
         currentPlayer2Pokemon = thirdPlayer2Pokemon;
         loggingSelectedPokemon(player2.name, currentPlayer2Pokemon);
         continue;
       }
       firstPlayer2PokemonFainted = true;
+      styledLog(`${currentPlayer2Pokemon.name} fainted`, "pokemonFainted");
       currentPlayer2Pokemon = secondPlayer2Pokemon;
-      loggingSelectedPokemon(player2.name, currentPlayer2Pokemon);
+      loggingSelectedPokemon(
+        player2.name,
+        currentPlayer2Pokemon,
+        "Second Pokemon"
+      );
     }
   }
 }
